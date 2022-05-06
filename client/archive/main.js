@@ -1,9 +1,11 @@
+//.env is in archive folder to run main.js
 //!Darkne55Darkne55
 //!6003AlessandroAve
-const { validate } = require('./modules/validate.js');
-const { send } = require('./modules/send.js');
-const { sendTwilio } = require('./send_sms.js');
-
+// require('dotenv').config()
+const { validate } = require('../../backend/modules/validate.js');
+const { sendGrid } = require('../../backend/modules/sendGrid.js');
+const { postToDB } = require('../../backend/modules/postToDB.js');
+const { sendTwilio } = require('../../backend/modules/send_sms.js');
 const inquirer = require('inquirer');
 
 const readline = require('readline');
@@ -66,12 +68,17 @@ async function main() {
     let response
     response = await ask()
     console.log(response)
+
     if (validate(response) == 'email') {
-        send(response, 'email')
+        sendGrid(response)
+        postToDB(response)
     } else if (validate(response) == 'phone') {
         await sendTwilio(response)
+        postToDB(response)
+        rl.close();
     }
-    rl.close();
+
+
 }
 
 main()
