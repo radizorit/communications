@@ -1,12 +1,17 @@
-const Communication = require('../models/communication');
+const Communication = require('../models/communications');
 module.exports.createCommunication = async (req, res) => {
     let newCommunication = new Communication({
+        name: req.body.name,
         message: req.body.message,
-        destination: req.body.destination,
+        communication: req.body.communication,
         timeStamp: req.body.timeStamp
     })
-    await newCommunication.save()
-    res.send(JSON)
+    try {
+        await newCommunication.save()
+        res.send(JSON)
+    } catch (err) {
+        console.log(err)
+    }
 }
 
 module.exports.getAllCommunication = async (req, res) => {

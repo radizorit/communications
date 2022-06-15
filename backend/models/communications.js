@@ -2,8 +2,9 @@ const mongoose = require('mongoose')
 const Schema = mongoose.Schema;
 
 const CommunicationSchema = new Schema({
+    name: String,
     message: String,
-    destination: String,
+    communication: String,
     timeStamp: Date
 })
 

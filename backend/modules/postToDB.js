@@ -1,14 +1,18 @@
+import { sendTwilio } from '../controllers/send_sms'
 const axios = require('axios')
 
-module.exports.postToDB = function postToDB(response) {
+export default function postToDB(response) {
     try {
-        axios.post('http://localhost:5000/communication', {
+        axios.post('http://localhost:5000/communications', {
+            name: response['name'],
             message: response['message'],
-            destination: response['destination'],
-            timeStamp: ((new Date().getMonth() + 1) + "/" + new Date().getDate() + "/" + new Date().getFullYear()).toString(),
+            communication: response['communication'],
+            timeStamp: response['timeStamp']
         })
         console.log('post succesful')
+        sendTwilio(response)
     } catch (err) {
         console.log(err)
     }
+    // console.log('Function response is:', response)
 }

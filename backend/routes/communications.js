@@ -4,12 +4,12 @@ const router = express.Router();
 const {
     createCommunication,
     getAllCommunication
-} = require('../controllers/communication')
+} = require('../controllers/communications')
 
-router.route('/communication')
+router.route('/communications')
     .post(createCommunication)
 
-router.route('/communication')
+router.route('/communications')
     .get(getAllCommunication)
 
 module.exports = router
